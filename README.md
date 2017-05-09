@@ -54,7 +54,7 @@ Atualmente o OpenBoleto funciona com os bancos abaixo:
 * Sicoob
 * Sicred
 * Unicred
-* Viacredi 
+* Viacredi
 
 
 Toda contribuição é bem vinda. Se você deseja adaptar o OpenBoleto a algum outro banco, fique à vontade para explorar o código, veja como é bastante simples integrar qualquer banco à biblioteca.
