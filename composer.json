@@ -9,12 +9,12 @@
         {
             "name": "Daniel Garajau",
             "email": "kriansa@facebook.com"
-        }
+        },
     ],
     "require": {
         "php": ">=5.6"
     },
     "autoload": {
-        "psr-0": {"OpenBoleto\\": "src/"}
+        "psr-4": {"OpenBoleto\\": "src/"}
     }
 }
