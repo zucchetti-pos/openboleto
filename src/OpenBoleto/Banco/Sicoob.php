@@ -1,5 +1,4 @@
 <?php
-
 /*
  * OpenBoleto - Geração de boletos bancários em PHP
  *
@@ -60,18 +59,6 @@ class Sicoob extends BoletoAbstract
     protected $carteiras = array('1', '2', '5');
 
     /**
-     * Modalidades disponíveis para as carteiras
-     * @var array
-     */
-    protected $modalidades = array('01', '02', '05');
-
-    /**
-     * Modalidade utilizada pela carteira
-     * @var string
-     */
-    protected $modalidade = null;
-
-    /**
      * Convênio utilizado pelo Sacado
      * @var integer
      */
@@ -82,6 +69,24 @@ class Sicoob extends BoletoAbstract
      * @var string
      */
     protected $numParcelas = '001';
+
+    /**
+     * Linha de local de pagamento
+     * @var string
+     */
+    protected $localPagamento = 'Pagável preferencialmente no Sicoob';
+
+    /**
+     * Modalidades disponíveis para as carteiras
+     * @var array
+     */
+    protected $modalidades = array('01', '02', '05');
+
+    /**
+     * Modalidade utilizada pela carteira
+     * @var string
+     */
+    protected $modalidade = null;
 
     /**
      * Gera o Nosso Número.
@@ -118,7 +123,7 @@ class Sicoob extends BoletoAbstract
         // c) Multiplicar cada componente da seqüência com o seu correspondente da constante e somar os resultados.
         $resto = $calculoDv % 11;
 
-        // e) O resto da divisão deverá ser subtraído de 11 achando assim o DV (Se o Resto for igual a 0 ou 1 então o DV é igual a 0).        
+        // e) O resto da divisão deverá ser subtraído de 11 achando assim o DV (Se o Resto for igual a 0 ou 1 então o DV é igual a 0).
         if ( ($resto == 0) || ($resto == 1) ) {
             $dv = 0;
         } else {
@@ -126,7 +131,7 @@ class Sicoob extends BoletoAbstract
         }
 
         return $numero .'-'. $dv;
-        
+
     }
 
     /**
@@ -137,8 +142,8 @@ class Sicoob extends BoletoAbstract
      */
     public function getCampoLivre()
     {
-        return $this->getCarteira(). $this->getAgencia() . $this->getModalidade() . self::zeroFill($this->getConvenio(), 7) .
-               $this->getNossoNumero(false) . $this->getNumParcelas();
+        return $this->getCarteira(). $this->getAgencia() . self::zeroFill($this->getCarteira(),2) . self::zeroFill($this->getConvenio(), 7) .
+            $this->getNossoNumero(false) . self::zeroFill($this->getNumParcelas(), 3);
     }
 
     /**
@@ -221,3 +226,4 @@ class Sicoob extends BoletoAbstract
         return $this->convenio;
     }
 }
+
