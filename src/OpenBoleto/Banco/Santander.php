@@ -77,7 +77,6 @@ class Santander extends BoletoAbstract
      */
     protected $ios;
 
-    protected $carteiraDv;
 
     /**
      * Define o valor do IOS
@@ -106,8 +105,15 @@ class Santander extends BoletoAbstract
      */
     protected function gerarNossoNumero()
     {
-        $sequencial = substr($this->getSequencial(),0,-1);
-        return self::zeroFill($sequencial, 12) . '-' . self::zeroFill($this->getCarteiraDv(), 1);
+        $sequencial = self::zeroFill($this->getSequencial(), 12);
+        return $sequencial . '-' . $this->gerarDigitoVerificadorNossoNumero();
+    }
+
+    protected function gerarDigitoVerificadorNossoNumero() {
+        $sequencial = self::zeroFill($this->getSequencial(), 12);
+        $digitoVerificador = static::modulo11($sequencial);
+
+        return $digitoVerificador['digito'];
     }
 
     /**
@@ -118,27 +124,13 @@ class Santander extends BoletoAbstract
      */
     public function getCampoLivre()
     {
-        return '9' . self::zeroFill($this->getConta(), 9) .
-            self::zeroFill($this->getSequencial(), 13) .
+        return '10' . self::zeroFill($this->getConta(), 10) .
+            self::zeroFill($this->getSequencial(), 12) .
+            self::zeroFill($this->gerarDigitoVerificadorNossoNumero(), 1) .
             self::zeroFill($this->getIos(), 1) .
             self::zeroFill($this->getCarteira(), 3);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCarteiraDv()
-    {
-        return $this->carteiraDv;
-    }
-
-    /**
-     * @param mixed $carteiraDv
-     */
-    public function setCarteiraDv($carteiraDv)
-    {
-        $this->carteiraDv = $carteiraDv;
-    }
 
     /**
      * Define variáveis da view específicas do boleto do Santander
@@ -148,8 +140,7 @@ class Santander extends BoletoAbstract
     public function getViewVars()
     {
         return array(
-            'esconde_uso_banco' => true,
-            'carteiraDv' => self::zeroFill($this->getCarteiraDv(), 1),
+            'esconde_uso_banco' => true
         );
     }
 }
