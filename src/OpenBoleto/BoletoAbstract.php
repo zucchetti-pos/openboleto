@@ -459,6 +459,28 @@ abstract class BoletoAbstract
     }
 
     /**
+     * Define o dígito verificador da conta
+     *
+     * @param int $codigoBeneficiario
+     * @return BoletoAbstract
+     */
+    public function setCodigoBeneficiario($codigoBeneficiario)
+    {
+        $this->codigoBeneficiario = $codigoBeneficiario;
+        return $this;
+    }
+
+    /**
+     * Retorna o dígito verificador do codigoBeneficiario
+     *
+     * @return int
+     */
+    public function getCodigoBeneficiario()
+    {
+        return $this->codigoBeneficiario;
+    }
+
+    /**
      * Retorna o dígito verificador da conta
      *
      * @return int
