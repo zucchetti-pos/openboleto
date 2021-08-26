@@ -131,6 +131,10 @@ class Santander extends BoletoAbstract
             self::zeroFill($this->getCarteira(), 3);
     }
 
+    public function getAgenciaCodigoCedente()
+    {
+        return static::zeroFill($this->getAgencia(), 4) . ' / ' . static::zeroFill($this->getCodigoBeneficiario(), 10);
+    }
 
     /**
      * Define variáveis da view específicas do boleto do Santander
