@@ -98,7 +98,7 @@ class Sicoob extends BoletoAbstract
         $numero = self::zeroFill($this->getSequencial(), 7);
         $sequencia = $this->getAgencia() . self::zeroFill($this->getConvenio(), 10) . $numero;
 
-        $cont=0;
+        $cont = 0;
         $calculoDv = '';
         // Constante para cálculo  = 3197
         // c) Multiplicar cada componente da seqüência com o seu correspondente da constante e somar os resultados.
@@ -124,14 +124,13 @@ class Sicoob extends BoletoAbstract
         $resto = $calculoDv % 11;
 
         // e) O resto da divisão deverá ser subtraído de 11 achando assim o DV (Se o Resto for igual a 0 ou 1 então o DV é igual a 0).
-        if ( ($resto == 0) || ($resto == 1) ) {
+        if (($resto == 0) || ($resto == 1)) {
             $dv = 0;
         } else {
             $dv = 11 - $resto;
         }
 
-        return $numero .'-'. $dv;
-
+        return $numero . '-' . $dv;
     }
 
     /**
@@ -142,7 +141,7 @@ class Sicoob extends BoletoAbstract
      */
     public function getCampoLivre()
     {
-        return $this->getCarteira(). $this->getAgencia() . self::zeroFill($this->getCarteira(),2) . self::zeroFill($this->getConvenio(), 7) .
+        return $this->getCarteira() . $this->getAgencia() . self::zeroFill($this->getCarteira(), 2) . self::zeroFill($this->getConvenio(), 7) .
             $this->getNossoNumero(false) . self::zeroFill($this->getNumParcelas(), 3);
     }
 
@@ -180,8 +179,22 @@ class Sicoob extends BoletoAbstract
      * @param integer $convenio Convẽnio do sacado
      * @return \OpenBoleto\Banco\Sicoob
      */
-    public function setConvenio($convenio) {
+    public function setConvenio($convenio)
+    {
         $this->convenio = $convenio;
+
+        return $this;
+    }
+
+    /**
+     * seta o número da parcela
+     *
+     * @param integer $numParcelas Número da parcela
+     * @return \OpenBoleto\Banco\Sicoob
+     */
+    public function setNumParcelas($numParcelas)
+    {
+        $this->numParcelas = $numParcelas;
 
         return $this;
     }
@@ -226,4 +239,3 @@ class Sicoob extends BoletoAbstract
         return $this->convenio;
     }
 }
-
