@@ -74,7 +74,7 @@ class Sicredi extends BoletoAbstract
 
         $numero = self::zeroFill($this->getAgencia(), 4) .
                   self::zeroFill($this->getPosto(), 2) .
-                  self::zeroFill($this->getConta(), 5) .
+                  self::zeroFill($this->getCodigoBeneficiario(), 5) .
                   self::zeroFill($ano, 2) .
                   "2" .
                   self::zeroFill($this->getSequencial(), 5);
@@ -92,12 +92,12 @@ class Sicredi extends BoletoAbstract
      */
     public function getCampoLivre()
     {
-        $numero = '3' .
+        $numero = '1' .
                '1' .
                self::zeroFill($this->getNossoNumero(false), 9) .
                self::zeroFill($this->getAgencia(), 4) .
                self::zeroFill($this->getPosto(), 2) .
-               self::zeroFill($this->getConta(), 5).
+               self::zeroFill($this->getCodigoBeneficiario(), 5).
                '1' .
                '0';
 
