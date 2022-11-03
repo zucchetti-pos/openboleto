@@ -139,7 +139,7 @@ class Itau extends BoletoAbstract
         $sequencial = self::zeroFill($this->getSequencial(), 8);
         $carteira = self::zeroFill($this->getCarteira(), 3);
         $agencia = self::zeroFill($this->getAgencia(), 4);
-        $conta = self::zeroFill($this->getConta(), 5);
+        $conta = self::zeroFill($this->getConta(), 6);
 
         // Carteira 198 - (Nosso Número com 15 posições) - Anexo 5 do manual
         if (in_array($this->getCarteira(), array('107', '122', '142', '143', '196', '198'))) {
