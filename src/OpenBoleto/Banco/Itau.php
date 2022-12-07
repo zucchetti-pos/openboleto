@@ -140,6 +140,7 @@ class Itau extends BoletoAbstract
         $carteira = self::zeroFill($this->getCarteira(), 3);
         $agencia = self::zeroFill($this->getAgencia(), 4);
         $conta = self::zeroFill($this->getConta(), 6);
+        $contaWithoutDV = substr($conta, 0, 5);
 
         // Carteira 198 - (Nosso Número com 15 posições) - Anexo 5 do manual
         if (in_array($this->getCarteira(), array('107', '122', '142', '143', '196', '198'))) {
@@ -163,9 +164,9 @@ class Itau extends BoletoAbstract
         }
 
         // Módulo 10 Agência/Conta
-        $dvAgConta = static::modulo10($agencia . $conta);
+        $dvAgConta = static::modulo10($agencia . $contaWithoutDV);
 
-        return $this->campoLivre = $carteira . $sequencial . $dvAgContaCarteira . $agencia . $conta . $dvAgConta . '000';
+        return $this->campoLivre = $carteira . $sequencial . $dvAgContaCarteira . $agencia . $contaWithoutDV . $dvAgConta . '000';
     }
 
     /**
