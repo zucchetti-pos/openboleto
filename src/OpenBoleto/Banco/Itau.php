@@ -89,6 +89,11 @@ class Itau extends BoletoAbstract
     protected $campoLivre;
 
     /**
+     * @var string
+     */
+    protected $layout = 'itau.phtml';
+
+    /**
      * Define o código do cliente
      *
      * @param int $codigoCliente

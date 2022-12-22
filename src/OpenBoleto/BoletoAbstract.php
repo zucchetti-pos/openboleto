@@ -1212,6 +1212,7 @@ abstract class BoletoAbstract
             'cedente_cpf_cnpj' => $this->getCedente()->getDocumento(),
             'cedente_endereco1' => $this->getCedente()->getEndereco(),
             'cedente_endereco2' => $this->getCedente()->getCepCidadeUf(),
+            'cedente_endereco_completo' => $this->getCedente()->getEnderecoCompleto(),
             'logo_banco' => $this->getLogoBancoBase64(),
             'logotipo' => $this->getLogoPath(),
             'codigo_banco_com_dv' => $this->getCodigoBancoComDv(),

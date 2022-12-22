@@ -61,6 +61,16 @@ class Agente
     /**
      * @var string
      */
+    protected $numero;
+    
+    /**
+     * @var string
+     */
+    protected $bairro;
+
+    /**
+     * @var string
+     */
     protected $cidade;
 
     /**
@@ -78,14 +88,24 @@ class Agente
      * @param string $cidade
      * @param string $uf
      */
-    public function __construct($nome, $documento, $endereco = null, $cep = null, $cidade = null, $uf = null)
-    {
+    public function __construct(
+        $nome,
+        $documento,
+        $endereco = null,
+        $cep = null,
+        $cidade = null,
+        $uf = null,
+        $numero = null,
+        $bairro = null
+    ) {
         $this->setNome($nome);
         $this->setDocumento($documento);
         $endereco and $this->setEndereco($endereco);
         $cep and $this->setCep($cep);
         $cidade and $this->setCidade($cidade);
         $uf and $this->setUf($uf);
+        $numero and $this->setNumero($numero);
+        $bairro and $this->setBairro($bairro);
     }
 
     /**
@@ -166,6 +186,46 @@ class Agente
     public function getEndereco()
     {
         return $this->endereco;
+    }
+
+    /**
+     * Define o numero
+     *
+     * @param string $numero
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+    }
+
+    /**
+     * Retorna o numero
+     *
+     * @return string
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Define o bairro
+     *
+     * @param string $bairro
+     */
+    public function setBairro($bairro)
+    {
+        $this->bairro = $bairro;
+    }
+
+    /**
+     * Retorna o bairro
+     *
+     * @return string
+     */
+    public function getBairro()
+    {
+        return $this->bairro;
     }
 
     /**
@@ -251,5 +311,24 @@ class Agente
     {
         $dados = array_filter(array($this->getCep(), $this->getCidade(), $this->getUf()));
         return implode(' - ', $dados);
+    }
+
+    /**
+     * Retorna o endereço completo formatado
+     *
+     * Ex: Bairro, 123 - Logradouro - Concórdia - SC - 89707091
+     *
+     * @return string
+     */
+    public function getEnderecoCompleto()
+    {
+        $bairro = $this->getBairro() ? $this->getBairro() . ', ' : '';
+        $numero = $this->getNumero() ? $this->getNumero() . ' - ' : '';
+        $endereco = $this->getEndereco() ? $this->getEndereco() . ' - ' : '';
+        $cidade = $this->getCidade() ? $this->getCidade() . ' - ' : '';
+        $uf = $this->getUf() ? $this->getUf() . ' - ' : '';
+        $cep = $this->getCep() ?: '';
+
+        return $bairro . $numero . $endereco . $cidade . $uf . $cep;
     }
 }
