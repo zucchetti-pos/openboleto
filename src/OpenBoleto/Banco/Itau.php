@@ -162,7 +162,7 @@ class Itau extends BoletoAbstract
         // Geração do DAC - Anexo 4 do manual
         if (!in_array($this->getCarteira(), array('126', '131', '146', '150', '168'))) {
             // Define o DV da carteira para a view
-            $this->carteiraDv = $dvAgContaCarteira = static::modulo10($agencia . $conta . $carteira . $sequencial);
+            $this->carteiraDv = $dvAgContaCarteira = static::modulo10($agencia . $conta . $contaWithoutDV . $sequencial);
         } else {
             // Define o DV da carteira para a view
             $this->carteiraDv = $dvAgContaCarteira = static::modulo10($carteira . $sequencial);
