@@ -106,10 +106,11 @@ class Santander extends BoletoAbstract
     protected function gerarNossoNumero()
     {
         $sequencial = self::zeroFill($this->getSequencial(), 12);
-        return $sequencial . '-' . $this->gerarDigitoVerificadorNossoNumero();
+        return $sequencial . $this->gerarDigitoVerificadorNossoNumero();
     }
 
-    protected function gerarDigitoVerificadorNossoNumero() {
+    protected function gerarDigitoVerificadorNossoNumero()
+    {
         $sequencial = self::zeroFill($this->getSequencial(), 12);
         $digitoVerificador = static::modulo11($sequencial);
 
@@ -124,16 +125,16 @@ class Santander extends BoletoAbstract
      */
     public function getCampoLivre()
     {
-        return '10' . self::zeroFill($this->getConta(), 10) .
-            self::zeroFill($this->getSequencial(), 12) .
-            self::zeroFill($this->gerarDigitoVerificadorNossoNumero(), 1) .
-            self::zeroFill($this->getIos(), 1) .
-            self::zeroFill($this->getCarteira(), 3);
+        return '9' . self::zeroFill($this->getCodigoBeneficiario(), 7) .
+            self::zeroFill($this->gerarNossoNumero(), 13) .
+            self::zeroFill($this->getCarteira(), 3) .
+            self::zeroFill($this->getFatorVencimento(), 4) .
+            self::zeroFill($this->getValor(), 10);
     }
 
     public function getAgenciaCodigoCedente()
     {
-        return static::zeroFill($this->getAgencia(), 4) . ' / ' . static::zeroFill($this->getCodigoBeneficiario(), 10);
+        return static::zeroFill($this->getAgencia(), 4) . ' / ' . static::zeroFill($this->getCodigoBeneficiario(), 7);
     }
 
     /**
