@@ -105,7 +105,7 @@ class Santander extends BoletoAbstract
      */
     protected function gerarNossoNumero()
     {
-        $sequencial = self::zeroFill($this->getSequencial(), 12);
+        $sequencial = self::zeroFill($this->getSequencial(), 11);
         return $sequencial . $this->gerarDigitoVerificadorNossoNumero();
     }
 
@@ -126,7 +126,7 @@ class Santander extends BoletoAbstract
     public function getCampoLivre()
     {
         return '9' . self::zeroFill($this->getCodigoBeneficiario(), 7) .
-            self::zeroFill($this->gerarNossoNumero(), 13) .
+            self::zeroFill($this->gerarNossoNumero(), 12) .
             self::zeroFill($this->getCarteira(), 3) .
             self::zeroFill($this->getFatorVencimento(), 4) .
             self::zeroFill($this->getValor(), 10);
