@@ -63,9 +63,42 @@ class Itau extends BoletoAbstract
      * @var array
      */
     protected $carteiras = array(
-        '148', '149', '153', '108', '180', '121', '150', '109', '191', '116', '117', '119',
-        '134', '135', '136', '104', '188', '147', '112', '115', '177', '172', '107', '204',
-        '205', '206', '173', '196', '103', '102', '174', '198', '167', '202', '203', '175',
+        '148',
+        '149',
+        '153',
+        '108',
+        '180',
+        '121',
+        '150',
+        '109',
+        '191',
+        '116',
+        '117',
+        '119',
+        '134',
+        '135',
+        '136',
+        '104',
+        '188',
+        '147',
+        '112',
+        '115',
+        '177',
+        '172',
+        '107',
+        '204',
+        '205',
+        '206',
+        '173',
+        '196',
+        '103',
+        '102',
+        '174',
+        '198',
+        '167',
+        '202',
+        '203',
+        '175',
         '157',
     );
 
@@ -162,7 +195,7 @@ class Itau extends BoletoAbstract
         // Geração do DAC - Anexo 4 do manual
         if (!in_array($this->getCarteira(), array('126', '131', '146', '150', '168'))) {
             // Define o DV da carteira para a view
-            $this->carteiraDv = $dvAgContaCarteira = static::modulo10($agencia . $conta . $contaWithoutDV . $sequencial);
+            $this->carteiraDv = $dvAgContaCarteira = static::modulo10($agencia . $contaWithoutDV . $carteira . $sequencial);
         } else {
             // Define o DV da carteira para a view
             $this->carteiraDv = $dvAgContaCarteira = static::modulo10($carteira . $sequencial);
