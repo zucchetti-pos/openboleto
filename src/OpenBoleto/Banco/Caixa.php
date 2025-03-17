@@ -89,7 +89,7 @@ class Caixa extends BoletoAbstract
      */
     public function setConta($conta)
     {
-        $this->conta = self::zeroFill($conta, 6);
+        $this->conta = self::zeroFill($conta, 12);
         return $this;
     }
 
@@ -108,7 +108,7 @@ class Caixa extends BoletoAbstract
         // se futuramente o projeto permitir a geração de lotes para inclusão, o tipo registrado pode ser útil
         // 1 => registrada, 2 => sem registro. O número 4 indica que é o beneficiário que está gerando o boleto
         $carteira = $this->getCarteira();
-        if ($carteira == 'SR'){
+        if ($carteira == 'SR') {
             $numero = '24';
         } else {
             $numero = '14';
@@ -116,7 +116,7 @@ class Caixa extends BoletoAbstract
 
         // As 15 próximas posições no nosso número são a critério do beneficiário, utilizando o sequencial
         // Depois, calcula-se o código verificador por módulo 11
-        $modulo = self::modulo11($numero.self::zeroFill($sequencial, 15));
+        $modulo = self::modulo11($numero . self::zeroFill($sequencial, 15));
         $numero .= self::zeroFill($sequencial, 15) . '-' . $modulo['digito'];
 
         return $numero;
@@ -155,7 +155,7 @@ class Caixa extends BoletoAbstract
 
         // Sequencia 1 (posições 3-5 NN) + Constante 1 (1 => registrada, 2 => sem registro)
         $carteira = $this->getCarteira();
-        if ($carteira == 'SR'){
+        if ($carteira == 'SR') {
             $constante = '2';
         } else {
             $constante = '1';
@@ -172,7 +172,6 @@ class Caixa extends BoletoAbstract
         $modulo = self::modulo11($campoLivre);
         $campoLivre .= $modulo['digito'];
 
-       return $campoLivre;
+        return $campoLivre;
     }
-
 }
