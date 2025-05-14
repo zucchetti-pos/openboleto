@@ -185,3 +185,48 @@ body{
 .barcode .large.white {
     width: 3px;
 }
+
+/* ===== ESTILOS EXCLUSIVOS SICOOB ===== */
+.sicoob-only .boleto-header-item {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    font-weight: bold;
+    position: relative;
+}
+
+.sicoob-only .boleto-logo {
+    vertical-align: bottom;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    top: 3px;
+}
+
+.sicoob-only .boleto-pipe {
+    font-size: 20px;
+    vertical-align: bottom;
+    top: -2.5px;
+}
+
+.sicoob-only .boleto-codigo {
+    font-size: 21px;
+    vertical-align: middle;
+    top: 5px;
+}
+
+.sicoob-only .boleto-linha {
+    font-size: 15px;
+    vertical-align: middle;
+    top: 6px;
+}
+
+.sicoob-only {
+    font-family: sans-serif !important;
+}
+
+.sicoob-only .titulo {
+    font-weight: normal !important;
+}
+.sicoob-only .conteudo {
+    font-weight: bold !important;
+}

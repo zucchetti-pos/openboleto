@@ -26,7 +26,6 @@
     <meta charset="UTF-8">
     <title><?php echo $cedente; ?></title>
     <style type="text/css">
-        /* Embed the CSS content here */
         <?php include $resource_path . '/css/styles.css' ?>
         <?php include $resource_path . '/css/pdf.css' ?>
     </style>
@@ -51,25 +50,27 @@
     </div>
     <br>
 
-    <table class="table-boleto" cellpadding="0" cellspacing="0" border="0">
+    <table class="table-boleto sicoob-only" cellpadding="0" cellspacing="0" border="0">
         <tbody>
         <tr>
-            <td colspan="5" class="noborder nopadding" style="padding:0; white-space:nowrap;">
-                    <span style="display:inline-block; vertical-align:middle;">
-                    <img
-                            src="<?php echo $logo_banco; ?>"
-                            alt="Sicoob"
-                            style="max-height:20px; vertical-align:middle;"
-                    />
+            <td colspan="5" class="noborder nopadding sicoob-only" style="padding:0;">
+                <div style="display: inline-block; white-space: nowrap; line-height: 1; position: relative;">
+                        <span class="boleto-header-item boleto-logo">
+                        <img src="<?php echo $logo_banco; ?>" alt="Sicoob" style="height:20px;">
                     </span>
-                <span style="margin:0 6px; display:inline-block; vertical-align:middle;">|</span>
-                <span style="font-weight:bold; font-size:12px; display:inline-block; vertical-align:middle;">
-                    <?php echo $codigo_banco_com_dv; ?>
+
+                    <span class="boleto-header-item boleto-pipe">|</span>
+
+                    <span class="boleto-header-item boleto-codigo">
+                        <?php echo $codigo_banco_com_dv; ?>
                     </span>
-                <span style="margin:0 6px; display:inline-block; vertical-align:middle;">|</span>
-                <span style="font-weight:bold; font-size:12px; display:inline-block; vertical-align:middle; white-space:nowrap;">
-                    <?php echo $linha_digitavel; ?>
+
+                    <span class="boleto-header-item boleto-pipe">|</span>
+
+                    <span class="boleto-header-item boleto-linha">
+                        <?php echo $linha_digitavel; ?>
                     </span>
+                </div>
             </td>
         </tr>
 
@@ -94,7 +95,9 @@
         <tr>
             <td colspan="5">
                 <div class="titulo">Endereço do Beneficiário</div>
-                <div class="conteudo"><?php echo $cedente_endereco1 ?><?php echo $cedente_endereco2 ? ' – '.$cedente_endereco2 : '' ?></div>
+                <div class="conteudo">
+                    <?= $cedente_endereco_completo ?>
+                </div>
             </td>
         </tr>
         <tr>
@@ -102,10 +105,11 @@
                 <div class="titulo">Pagador</div>
                 <div class="conteudo">
                     <?php
-                    echo $sacado;
+                    echo preg_replace('/\s*\(.*?\)\s*/', '', $sacado);
 
                     if (!empty($sacado_documento)) {
-                        echo ' – CNPJ: ' . $sacado_documento;
+                        $cnpj = preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $sacado_documento);
+                        echo ' - CNPJ: ' . $cnpj;
                     }
                     ?>
                 </div>
@@ -182,7 +186,7 @@
     <br>
 
     <!-- Ficha de compensação -->
-    <?php include('partials/ficha-de-compensacao.phtml') ?>
+    <?php include('partials/ficha-de-compensacao-sicoob.phtml') ?>
 </div>
 </body>
 </html>
