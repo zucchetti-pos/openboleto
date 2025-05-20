@@ -71,6 +71,11 @@ class Sicoob extends BoletoAbstract
     protected $numParcelas = '001';
 
     /**
+     * @var string
+     */
+    protected $layout = 'sicoob.phtml';
+
+    /**
      * Linha de local de pagamento
      * @var string
      */
