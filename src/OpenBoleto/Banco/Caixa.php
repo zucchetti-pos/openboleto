@@ -174,6 +174,7 @@ class Caixa extends BoletoAbstract
 
         return $campoLivre;
     }
+    
 
     public function getAgenciaCodigoCedente()
     {
