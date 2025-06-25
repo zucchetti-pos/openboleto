@@ -84,11 +84,6 @@ class Bradesco extends BoletoAbstract
     protected $digitoAutoConferencia;
 
     /**
-     * @var string
-     */
-    protected $layout = 'bradesco.phtml';
-
-    /**
      * Gera o Nosso Número.
      *
      * @return string
