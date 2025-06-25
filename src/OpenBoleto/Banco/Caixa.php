@@ -174,4 +174,10 @@ class Caixa extends BoletoAbstract
 
         return $campoLivre;
     }
+
+    public function getAgenciaCodigoCedente()
+    {
+        $agencia = $this->getAgenciaDv() !== null ? $this->getAgencia() . '-' . $this->getAgenciaDv() : $this->getAgencia();
+        return $agencia . ' / ' . $this->getCodigoBeneficiario();
+    }
 }
