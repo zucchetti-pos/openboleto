@@ -1,3 +1,28 @@
+<?php
+function formatarCpfCnpj(string $documento): string
+{
+    $doc = preg_replace('/\D/', '', $documento);
+
+    if (strlen($doc) === 11) {
+        return preg_replace(
+            '/(\d{3})(\d{3})(\d{3})(\d{2})/',
+            '$1.$2.$3-$4',
+            $doc
+        );
+    }
+
+    if (strlen($doc) === 14) {
+        return preg_replace(
+            '/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/',
+            '$1.$2.$3/$4-$5',
+            $doc
+        );
+    }
+
+    return $documento;
+}
+?>
+
 <!DOCTYPE html>
 <!--
  * OpenBoleto - Geração de boletos bancários em PHP
@@ -107,9 +132,20 @@
                     <?php
                     echo preg_replace('/\s*\(.*?\)\s*/', '', $sacado);
 
-                    if (!empty($sacado_documento)) {
-                        $cnpj = preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $sacado_documento);
-                        echo ' - CNPJ: ' . $cnpj;
+                    if (! empty($sacado_documento)) {
+                        $apenasDigitos = preg_replace('/\D/', '', $sacado_documento);
+                        $len = strlen($apenasDigitos);
+
+                        $labels = [
+                            11 => 'CPF',
+                            14 => 'CNPJ',
+                        ];
+
+                        $label = isset($labels[$len])
+                            ? $labels[$len]
+                            : 'Documento';
+
+                        echo ' – ' . $label . ': ' . formatarCpfCnpj($sacado_documento);
                     }
                     ?>
                 </div>
