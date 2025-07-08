@@ -84,6 +84,34 @@ class Bradesco extends BoletoAbstract
     protected $digitoAutoConferencia;
 
     /**
+     * Código do beneficiário
+     * @var string
+     */
+    protected $codigoBeneficiario;
+
+    /**
+     * Seta o código do beneficiário
+     *
+     * @param string $codigoBeneficiario
+     * @return $this
+     */
+    public function setCodigoBeneficiario($codigoBeneficiario)
+    {
+        $this->codigoBeneficiario = $codigoBeneficiario;
+        return $this;
+    }
+
+    /**
+     * Retorna o código do beneficiário
+     *
+     * @return string
+     */
+    public function getCodigoBeneficiario()
+    {
+        return $this->codigoBeneficiario;
+    }
+
+    /**
      * Gera o Nosso Número.
      *
      * @return string
@@ -154,4 +182,22 @@ class Bradesco extends BoletoAbstract
         return $this;
     }
 
+    public function getAgenciaCodigoCedente()
+    {
+        $agencia = $this->getAgencia();
+        if ($this->getAgenciaDv() !== null) {
+            $agencia .= '-' . $this->getAgenciaDv();
+        }
+
+        $codigoBeneficiario = $this->getCodigoBeneficiario() !== null
+            ? $this->getCodigoBeneficiario()
+            : $this->getConta();
+
+        $dvBeneficiario = $this->getContaDv();
+        if ($dvBeneficiario !== null) {
+            $codigoBeneficiario .= '-' . $dvBeneficiario;
+        }
+
+        return $agencia . ' / ' . $codigoBeneficiario;
+    }
 }

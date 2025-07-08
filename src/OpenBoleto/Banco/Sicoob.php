@@ -59,6 +59,12 @@ class Sicoob extends BoletoAbstract
     protected $carteiras = array('1', '2', '5');
 
     /**
+     * Código do beneficiário
+     * @var string
+     */
+    protected $codigoBeneficiario;
+
+    /**
      * Convênio utilizado pelo Sacado
      * @var integer
      */
@@ -157,7 +163,7 @@ class Sicoob extends BoletoAbstract
      */
     public function getAgenciaCodigoCedente()
     {
-        return static::zeroFill($this->getAgencia(), 4) . ' / ' . $this->getConvenio();
+        return static::zeroFill($this->getAgencia(), 4) . ' / ' . $this->getCodigoBeneficiario();
     }
 
     /**
@@ -190,6 +196,29 @@ class Sicoob extends BoletoAbstract
 
         return $this;
     }
+
+    /**
+     * Seta o código do beneficiário
+     *
+     * @param string $codigoBeneficiario
+     * @return $this
+     */
+    public function setCodigoBeneficiario($codigoBeneficiario)
+    {
+        $this->codigoBeneficiario = $codigoBeneficiario;
+        return $this;
+    }
+
+    /**
+     * Retorna o código do beneficiário
+     *
+     * @return string
+     */
+    public function getCodigoBeneficiario()
+    {
+        return $this->codigoBeneficiario;
+    }
+
 
     /**
      * seta o número da parcela

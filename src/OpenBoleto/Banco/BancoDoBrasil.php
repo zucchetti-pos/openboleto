@@ -72,6 +72,34 @@ class BancoDoBrasil extends BoletoAbstract
     protected $convenio;
 
     /**
+     * Código do beneficiário
+     * @var string
+     */
+    protected $codigoBeneficiario;
+
+    /**
+     * Seta o código do beneficiário
+     *
+     * @param string $codigoBeneficiario
+     * @return $this
+     */
+    public function setCodigoBeneficiario($codigoBeneficiario)
+    {
+        $this->codigoBeneficiario = $codigoBeneficiario;
+        return $this;
+    }
+
+    /**
+     * Retorna o código do beneficiário
+     *
+     * @return string
+     */
+    public function getCodigoBeneficiario()
+    {
+        return $this->codigoBeneficiario;
+    }
+
+    /**
      * Define o número do convênio. Sempre use string pois a quantidade de caracteres é validada.
      *
      * @param string $convenio
@@ -177,4 +205,10 @@ class BancoDoBrasil extends BoletoAbstract
 
         throw new Exception('O código do convênio precisa ter 4, 6 ou 7 dígitos!');
     }
+
+    public function getAgenciaCodigoCedente()
+    {
+        return static::zeroFill($this->getAgencia(), 5) . ' / ' . $this->getCodigoBeneficiario();
+    }
+
 }
