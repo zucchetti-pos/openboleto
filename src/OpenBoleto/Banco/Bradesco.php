@@ -162,19 +162,10 @@ class Bradesco extends BoletoAbstract
     public function getAgenciaCodigoCedente()
     {
         $agencia = $this->getAgencia();
-        if ($this->getAgenciaDv() !== null) {
-            $agencia .= '-' . $this->getAgenciaDv();
-        }
+        $agencia .= $this->getAgenciaDv() !== null ? '-' . $this->getAgenciaDv() : '';
 
-        $codigoBeneficiario = $this->getCodigoBeneficiario() !== null
-            ? $this->getCodigoBeneficiario()
-            : $this->getConta();
+        $codigo = $this->getCodigoBeneficiario() !== null ? $this->getCodigoBeneficiario() : $this->getConta();
 
-        $dvBeneficiario = $this->getContaDv();
-        if ($dvBeneficiario !== null) {
-            $codigoBeneficiario .= '-' . $dvBeneficiario;
-        }
-
-        return $agencia . ' / ' . $codigoBeneficiario;
+        return sprintf('%s / %s', $agencia, $codigo);
     }
 }
