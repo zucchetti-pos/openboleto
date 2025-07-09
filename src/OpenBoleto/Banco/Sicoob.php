@@ -157,7 +157,7 @@ class Sicoob extends BoletoAbstract
      */
     public function getAgenciaCodigoCedente()
     {
-        return static::zeroFill($this->getAgencia(), 4) . ' / ' . $this->getConvenio();
+        return static::zeroFill($this->getAgencia(), 4) . ' / ' . $this->getCodigoBeneficiario();
     }
 
     /**

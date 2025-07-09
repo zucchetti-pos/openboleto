@@ -113,7 +113,7 @@ class Sicredi extends BoletoAbstract
      */
     public function getAgenciaCodigoCedente()
     {
-        return static::zeroFill($this->getAgencia(), 4) . '.' . static::zeroFill($this->getPosto(), 2) . '.' . static::zeroFill($this->getConta(), 5);
+        return static::zeroFill($this->getAgencia(), 4) . ' / ' . $this->getCodigoBeneficiario();
     }
 
 

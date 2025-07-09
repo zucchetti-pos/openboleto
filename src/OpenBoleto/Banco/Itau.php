@@ -218,4 +218,15 @@ class Itau extends BoletoAbstract
             'carteira' => $this->getCarteira(), // Campo não utilizado pelo Itaú
         );
     }
+
+    /**
+     * Retorna o campo Agência/Cedente do boleto
+     *
+     * @return string
+     */
+    public function getAgenciaCodigoCedente()
+    {
+        return static::zeroFill($this->getAgencia(), 4) . ' / ' . $this->getCodigoBeneficiario();
+    }
+
 }
