@@ -61,34 +61,6 @@ class Sicredi extends BoletoAbstract
      */
     protected $carteiras = array('1', '11', '21', '31', '41', '51');
 
-    /**
-     * Código do beneficiário
-     * @var string
-     */
-    protected $codigoBeneficiario;
-
-    /**
-     * Seta o código do beneficiário
-     *
-     * @param string $codigoBeneficiario
-     * @return $this
-     */
-    public function setCodigoBeneficiario($codigoBeneficiario)
-    {
-        $this->codigoBeneficiario = $codigoBeneficiario;
-        return $this;
-    }
-
-    /**
-     * Retorna o código do beneficiário
-     *
-     * @return string
-     */
-    public function getCodigoBeneficiario()
-    {
-        return $this->codigoBeneficiario;
-    }
-
     protected $posto;
 
     /**
