@@ -177,4 +177,10 @@ class BancoDoBrasil extends BoletoAbstract
 
         throw new Exception('O código do convênio precisa ter 4, 6 ou 7 dígitos!');
     }
+
+    public function getAgenciaCodigoCedente()
+    {
+        return static::zeroFill($this->getAgencia(), 5) . ' / ' . $this->getCodigoBeneficiario();
+    }
+
 }

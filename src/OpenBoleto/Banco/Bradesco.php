@@ -84,6 +84,11 @@ class Bradesco extends BoletoAbstract
     protected $digitoAutoConferencia;
 
     /**
+     * @var string
+     */
+    protected $layout = 'bradesco.phtml';
+
+    /**
      * Gera o Nosso Número.
      *
      * @return string
@@ -154,4 +159,13 @@ class Bradesco extends BoletoAbstract
         return $this;
     }
 
+    public function getAgenciaCodigoCedente()
+    {
+        $agencia = $this->getAgencia();
+        $agencia .= $this->getAgenciaDv() !== null ? '-' . $this->getAgenciaDv() : '';
+
+        $codigo = $this->getCodigoBeneficiario() !== null ? $this->getCodigoBeneficiario() : $this->getConta();
+
+        return sprintf('%s / %s', $agencia, $codigo);
+    }
 }
