@@ -11,7 +11,7 @@ class CpfCnpjFormatter
             return $value;
         }
 
-        $value = preg_replace('/[^0-9]/', '', $value);
+        $value = preg_replace('/[^A-Z0-9]/', '', $value);
         if (!in_array(strlen($value), [11, 14])) {
             return $value;
         }
@@ -19,12 +19,12 @@ class CpfCnpjFormatter
         return strlen($value) === 11 ? self::formatForCpf($value) : self::formatForCnpj($value);
     }
 
-    public static function formatForCpf($value)
+    private static function formatForCpf($value)
     {
         return vsprintf('%s%s%s.%s%s%s.%s%s%s-%s%s', str_split($value));
     }
 
-    public static function formatForCnpj($value)
+    private static function formatForCnpj($value)
     {
         return vsprintf('%s%s.%s%s%s.%s%s%s/%s%s%s%s-%s%s', str_split($value));
     }
