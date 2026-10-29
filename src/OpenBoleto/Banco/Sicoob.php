@@ -41,6 +41,13 @@ use OpenBoleto\Exception;
 class Sicoob extends BoletoAbstract
 {
     /**
+     * Carteira sicoob voltada aos clientes que possuem código beneficiário maior que 8 caracteres
+     */
+    const NOVA_CARTEIRA_COBRANCA = '9';
+
+    const COBRANCA_SIMPLES_NOVO_CONTRATO = '1';
+
+    /**
      * Código do banco
      * @var string
      */
@@ -56,7 +63,7 @@ class Sicoob extends BoletoAbstract
      * Define as carteiras disponíveis para este banco
      * @var array
      */
-    protected $carteiras = array('1', '2', '5');
+    protected $carteiras = array('1', '2', '5', '9');
 
     /**
      * Convênio utilizado pelo Sacado
@@ -92,6 +99,12 @@ class Sicoob extends BoletoAbstract
      * @var string
      */
     protected $modalidade = null;
+
+    /**
+     * Novo parametro utilizado pelo sicoob em conjunto com os parametros carteira e modalidade visando tratar o caso de novos contratos que possuem um código de beneficiário com tamanho maior que 8 caractéres
+     * @var int
+     */
+    protected $identificadorNegocio = null;
 
     /**
      * Gera o Nosso Número.
@@ -146,6 +159,12 @@ class Sicoob extends BoletoAbstract
      */
     public function getCampoLivre()
     {
+
+        if ($this->identificadorNegocio) {
+            return  $this->getIdentificadorNegocio() . $this->getAgencia() . self::zeroFill($this->getCarteira(), 2) . self::zeroFill($this->getConvenio(), 7) .
+                $this->getNossoNumero(false) . self::zeroFill($this->getNumParcelas(), 3);
+        }
+
         return $this->getCarteira() . $this->getAgencia() . self::zeroFill($this->getCarteira(), 2) . self::zeroFill($this->getConvenio(), 7) .
             $this->getNossoNumero(false) . self::zeroFill($this->getNumParcelas(), 3);
     }
@@ -242,5 +261,38 @@ class Sicoob extends BoletoAbstract
     public function getConvenio()
     {
         return $this->convenio;
+    }
+
+    /**
+     * Retorna a identificadorNegocio
+     *
+     * @return integer
+     */
+    public function getIdentificadorNegocio()
+    {
+        return $this->identificadorNegocio;
+    }
+
+    /**
+     * Define o código da carteira (Com ou sem registro)
+     *
+     * @param string $carteira
+     * @return BoletoAbstract
+     * @throws Exception
+     */
+    public function setCarteira($carteira)
+    {
+        if (!in_array($carteira, $this->getCarteiras())) {
+            throw new Exception("Carteira não disponível!");
+        }
+
+        if ($carteira === self::NOVA_CARTEIRA_COBRANCA) {
+            $this->identificadorNegocio = $carteira;
+            $this->carteira = self::COBRANCA_SIMPLES_NOVO_CONTRATO;
+            return $this;
+        }
+
+        $this->carteira = $carteira;
+        return $this;
     }
 }
