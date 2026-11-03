@@ -161,7 +161,7 @@ class Sicoob extends BoletoAbstract
     {
 
         if ($this->identificadorNegocio) {
-            return  $this->getIdentificadorNegocio() . $this->getAgencia() . self::zeroFill($this->getCarteira(), 2) . self::zeroFill($this->getConvenio(), 7) .
+            return  $this->getIdentificadorNegocio() . $this->getAgencia() . self::zeroFill($this->getConvenio(), 9) .
                 $this->getNossoNumero(false) . self::zeroFill($this->getNumParcelas(), 3);
         }
 
